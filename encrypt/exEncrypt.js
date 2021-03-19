@@ -7,6 +7,9 @@ const key = crypto.scryptSync(password, 'salt', 24);
 const iv = Buffer.alloc(16, 'x');
 
 function exEncrypt(data) {
+  if (typeof data !== typeof "") {
+    data = JSON.stringify(data);
+  }
   const cipher = crypto.createCipheriv(algorithm, key, iv);
   let encrypted = cipher.update(data, 'utf8', 'hex');
   encrypted += cipher.final('hex');

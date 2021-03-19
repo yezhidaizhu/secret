@@ -1,13 +1,16 @@
 const crypto = require('crypto');
 
 const password = process.env.password;
+const iv = Buffer.alloc(16, 'qw');
 
 
-const algorithm = 'aes-192-cbc';
-const key = crypto.scryptSync(password, 'salt', 24);
-const iv = Buffer.alloc(16, 'x');
+const algorithm = 'aes-256-cbc';
+const key = crypto.scryptSync(password, 'salt', 32);
 
 function encrypt(data) {
+  if (typeof data !== typeof "") {
+    data = JSON.stringify(data);
+  }
   const cipher = crypto.createCipheriv(algorithm, key, iv);
   let encrypted = cipher.update(data, 'utf8', 'hex');
   encrypted += cipher.final('hex');

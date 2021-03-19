@@ -1,12 +1,18 @@
 require('dotenv').config();
 
 const { exEncrypt, exDecrypt } = require('./encrypt/exEncrypt');
+const { encrypt, decrypt } = require('./encrypt/passEncrypt');
 
 const d = require('./demoExData');
-const data = JSON.stringify(d);
 
-const enc = exEncrypt(data);
-const denc = exDecrypt(enc);
+const enc = encrypt(d);
 console.log(enc);
-console.log(denc);
-console.log(JSON.parse(denc));
+
+// const denc = decrypt(enc);
+// console.log(denc);
+// console.log(JSON.parse(denc));
+
+// d?.map(item => {
+//   const { pass } = item;
+//   console.log(decrypt(pass));
+// })
